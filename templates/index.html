@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}ShopEasy — Shop{% endblock %}
+
+{% block content %}
+  <h1 class="page-title">Shop our products</h1>
+
+  <div class="category-filter">
+    <a href="{{ url_for('index') }}" class="{{ 'active' if not active_category else '' }}">All</a>
+    {% for c in categories %}
+      <a href="{{ url_for('index', category=c.category) }}"
+         class="{{ 'active' if active_category == c.category else '' }}">{{ c.category }}</a>
+    {% endfor %}
+  </div>
+
+  <div class="product-grid">
+    {% for p in products %}
+      <div class="product-card">
+        <a href="{{ url_for('product_detail', product_id=p.id) }}">
+          <img src="{{ p.image_url }}" alt="{{ p.name }}">
+          <h3>{{ p.name }}</h3>
+        </a>
+        <p class="price">&#8377;{{ "%.2f"|format(p.price) }}</p>
+        <p class="stock">{{ p.stock }} in stock</p>
+        <button class="btn-add-cart" data-product-id="{{ p.id }}">Add to Cart</button>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

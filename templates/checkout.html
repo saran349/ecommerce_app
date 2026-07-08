@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Checkout — ShopEasy{% endblock %}
+
+{% block content %}
+  <h1 class="page-title">Checkout</h1>
+
+  <div class="checkout-summary">
+    <h2>Order Summary</h2>
+    <ul>
+      {% for item in items %}
+        <li>{{ item.name }} &times; {{ item.quantity }} — &#8377;{{ "%.2f"|format(item.subtotal) }}</li>
+      {% endfor %}
+    </ul>
+    <p class="cart-total"><strong>Total: &#8377;{{ "%.2f"|format(total) }}</strong></p>
+  </div>
+
+  <form method="POST" class="checkout-form">
+    <label for="address">Shipping Address</label>
+    <textarea id="address" name="address" rows="3" required placeholder="Enter your full shipping address"></textarea>
+    <button type="submit" class="btn-checkout">Place Order</button>
+  </form>
+{% endblock %}
